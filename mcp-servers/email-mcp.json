@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "email-notifications": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-email-mock"],
+      "env": {}
+    }
+  }
+}

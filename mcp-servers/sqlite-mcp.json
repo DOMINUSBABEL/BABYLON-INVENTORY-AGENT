@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "sqlite-inventory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db", "db/inventory.sqlite"],
+      "env": {}
+    }
+  }
+}
