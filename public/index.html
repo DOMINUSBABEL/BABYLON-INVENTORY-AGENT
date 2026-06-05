@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BABYLON - Purchase & Inventory Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-circle">📦</div>
+                <h2>BABYLON.IA</h2>
+            </div>
+            <p class="tagline">INVENTORY AGENT</p>
+            <nav class="menu">
+                <a href="#" class="menu-item active" data-tab="tab-inventory">
+                    <span class="icon">📁</span> Inventario Hardware
+                </a>
+                <a href="#" class="menu-item" data-tab="tab-purchases">
+                    <span class="icon">🛒</span> Motor de Compra
+                </a>
+                <a href="#" class="menu-item" data-tab="tab-telemetry">
+                    <span class="icon">🧠</span> Telemetría Geist
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Análisis Predictivo Activo</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-info">
+                    <h1>Gestión de Inventario y Adquisiciones</h1>
+                    <p>Monitoreo local de activos físicos y optimización comercial de presupuestos.</p>
+                </div>
+                <div class="env-stats">
+                    <div class="stat-bubble">
+                        <span class="label">Temporada de Compra</span>
+                        <span class="value accent-text" id="buy-season-indicator">Calculando...</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Tab Inventory -->
+            <section id="tab-inventory" class="tab-pane active">
+                <div class="grid-layout">
+                    <!-- Stock Alert Card -->
+                    <div class="card glass-card span-12">
+                        <h3>Monitoreo de Stock y Alertas de Re-orden</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Activo / Recurso</th>
+                                    <th>Categoría</th>
+                                    <th>Stock Actual</th>
+                                    <th>Mínimo Seguro</th>
+                                    <th>Estado</th>
+                                    <th>Costo Unitario</th>
+                                    <th>Proveedor</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-table-body">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Purchases -->
+            <section id="tab-purchases" class="tab-pane">
+                <div class="grid-layout">
+                    <!-- Predictive Engine -->
+                    <div class="card glass-card span-7">
+                        <h3>Planificación Estratégica de Presupuesto (CAPEX)</h3>
+                        <p class="muted-text" style="margin-bottom: 20px;">El análisis dialéctico evalúa que el mejor momento para compras de infraestructura es <strong>Octubre / Noviembre</strong>, cuando las empresas cierran sus presupuestos para el año siguiente.</p>
+                        
+                        <div class="info-box">
+                            <strong>Insight del Inversor:</strong>
+                            <p>En el sector corporativo, vender o adquirir en el primer semestre suele enfrentar la objeción "no hay presupuesto para este año". Programar compras en Q4 permite estructurar y planificar el presupuesto del año fiscal subsiguiente.</p>
+                        </div>
+
+                        <div class="purchase-planner-form" style="margin-top: 25px;">
+                            <div class="form-group">
+                                <label for="target-purchase-item">Dispositivo/Servicio a Comprar</label>
+                                <input type="text" id="target-purchase-item" value="Nvidia RTX 4090 GPU">
+                            </div>
+                            <button type="button" class="btn-primary" id="btn-analyze-time">Analizar Momento Óptimo de Compra</button>
+                        </div>
+                    </div>
+
+                    <!-- Prediction Result -->
+                    <div class="card glass-card span-5" id="analysis-output-panel">
+                        <h3>Recomendación de Compra</h3>
+                        <div id="analysis-empty">
+                            <p class="muted-text text-center" style="margin-top: 60px;">Haz clic en analizar para procesar la fecha óptima.</p>
+                        </div>
+                        <div id="analysis-results" class="hidden">
+                            <h4 class="success-text" style="font-size: 1.2rem; margin-bottom: 15px;">¡Análisis Completo!</h4>
+                            <div class="result-row">
+                                <span>Mes Actual:</span>
+                                <strong id="res-current-month">Junio</strong>
+                            </div>
+                            <div class="result-row">
+                                <span>Calificación del Momento:</span>
+                                <strong id="res-timing-rating" class="warn-text">MOMENTO REGULAR (Esperar Q4)</strong>
+                            </div>
+                            <div class="result-row highlight">
+                                <span>Sugerencia del Agente:</span>
+                                <span id="res-agent-suggestion" style="font-size: 0.9rem; line-height: 1.4; display:block; padding-top: 5px;">Recomendable aplazar adquisición hasta Octubre para calzar con cierre presupuestal.</span>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <button class="btn-success w-100" id="btn-generate-po">Generar Borrador de Orden de Compra</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PO Generator Modal (Simulated in card) -->
+                    <div class="card glass-card span-12 hidden" id="po-draft-card">
+                        <h3>Borrador de Correo Comercial / Orden de Compra</h3>
+                        <div class="terminal-window">
+                            <div class="terminal-body" id="po-draft-content" contenteditable="true" style="font-family: var(--font-sans); max-height:400px; overflow-y:auto; line-height:1.6; white-space: pre-wrap;">
+                                <!-- Draft filled here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Telemetry -->
+            <section id="tab-telemetry" class="tab-pane">
+                <div class="grid-layout">
+                    <div class="card glass-card span-12">
+                        <h3>Ciclo Dialéctico Geist (Procesador de Inventario)</h3>
+                        <div class="terminal-window">
+                            <div class="terminal-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="terminal-title">geist_inventory.log</span>
+                            </div>
+                            <div class="terminal-body" id="inventory-telemetry">
+                                <div class="log-line"><span class="log-time">[01:14:48]</span> <span class="log-info">SYSTEM:</span> Inicializando Monitor de Inventario de Hardware...</div>
+                                <div class="log-line"><span class="log-time">[01:14:50]</span> <span class="log-info">TESIS:</span> Verificando niveles mínimos de stock.</div>
+                                <div class="log-line"><span class="log-time">[01:14:51]</span> <span class="log-warn">ANTÍTESIS:</span> Nvidia RTX 4090 GPU en stock: 1. Mínimo requerido: 2. Alerta de re-orden activa.</div>
+                                <div class="log-line"><span class="log-time">[01:14:53]</span> <span class="log-success">SÍNTESIS:</span> Borrador de orden preparado para Nvidia Dist. Sugerido calzar con el presupuesto aprobado de fin de año.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
