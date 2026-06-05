@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "postgres-assets": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://localhost/assets"],
+      "env": {}
+    }
+  }
+}
